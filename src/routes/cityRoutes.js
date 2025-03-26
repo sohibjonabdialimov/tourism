@@ -24,7 +24,14 @@ router.post(
   cityController.createCity
 );
 
-router.post('/', upload.single('mainImage'), controllerFn);
+router.post(
+  '/',
+  upload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'galleryImages', maxCount: 5 }
+  ]),
+  cityController.createCity // ← bu yerda controllerFn emas!
+);
 
 // PUT /api/cities/:id – shaharni yangilash
 router.put('/:id', cityController.updateCity);
