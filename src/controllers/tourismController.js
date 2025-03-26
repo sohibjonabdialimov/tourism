@@ -1,6 +1,5 @@
 const Tourism = require('../models/Tourism');
 
-// GET /api/tourism – get all tourism places (short list)
 exports.getAllTourismPlaces = async (req, res) => {
   try {
     const places = await Tourism.find({}, 'title mainImage slug');
@@ -10,7 +9,6 @@ exports.getAllTourismPlaces = async (req, res) => {
   }
 };
 
-// GET /api/tourism/:slug – get tourism place by slug
 exports.getTourismBySlug = async (req, res) => {
   try {
     const place = await Tourism.findOne({ slug: req.params.slug });
@@ -25,7 +23,6 @@ exports.getTourismBySlug = async (req, res) => {
   }
 };
 
-// POST /api/tourism – create tourism place
 exports.createTourismPlace = async (req, res) => {
   try {
     const place = new Tourism(req.body);
@@ -36,7 +33,6 @@ exports.createTourismPlace = async (req, res) => {
   }
 };
 
-// PUT /api/tourism/:slug – update by slug
 exports.updateTourismPlace = async (req, res) => {
   try {
     const updated = await Tourism.findOneAndUpdate(
@@ -55,7 +51,6 @@ exports.updateTourismPlace = async (req, res) => {
   }
 };
 
-// DELETE /api/tourism/:slug – delete by slug
 exports.deleteTourismPlace = async (req, res) => {
   try {
     const deleted = await Tourism.findOneAndDelete({ slug: req.params.slug });

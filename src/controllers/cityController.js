@@ -1,6 +1,5 @@
 const City = require('../models/City');
 
-// GET /api/cities – get all cities (short data)
 exports.getAllCities = async (req, res) => {
   try {
     const cities = await City.find({}, 'name mainImage shortDescription'); // faqat kerakli fieldlar
@@ -10,7 +9,6 @@ exports.getAllCities = async (req, res) => {
   }
 };
 
-// GET /api/cities/:id – get full city details by id
 exports.getCityById = async (req, res) => {
   try {
     const city = await City.findById(req.params.id);
@@ -25,7 +23,6 @@ exports.getCityById = async (req, res) => {
   }
 };
 
-// POST /api/cities – create a new city
 exports.createCity = async (req, res) => {
   try {
     const { name, shortDescription, title, fullDescription, youtubeLink, mapLink, infoSections } = req.body;
@@ -51,7 +48,6 @@ exports.createCity = async (req, res) => {
 };
 
 
-// PUT /api/cities/:id – update city
 exports.updateCity = async (req, res) => {
   try {
     const updatedCity = await City.findByIdAndUpdate(req.params.id, req.body, {
@@ -69,7 +65,6 @@ exports.updateCity = async (req, res) => {
   }
 };
 
-// DELETE /api/cities/:id – delete city
 exports.deleteCity = async (req, res) => {
   try {
     const deletedCity = await City.findByIdAndDelete(req.params.id);
