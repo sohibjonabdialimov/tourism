@@ -25,9 +25,24 @@ exports.getCityById = async (req, res) => {
 
 exports.createCity = async (req, res) => {
   try {
-    const { name, shortDescription, title, fullDescription, youtubeLink, mapLink, infoSections } = req.body;
+    const {
+      name,
+      shortDescription,
+      title,
+      fullDescription,
+      youtubeLink,
+      mapLink,
+      infoSections
+    } = req.body;
 
-    const mainImage = req.file ? req.file.path : null;
+    const mainImage = req.files && req.files['mainImage']
+      ? req.files['mainImage'][0].path
+      : null;
+    console.log(req.files['mainImage']);
+    
+    const galleryImages = req.files && req.files['galleryImages']
+      ? req.files['galleryImages'].map(file => file.path)
+      : [];
 
     const city = new City({
       name,
@@ -36,16 +51,31 @@ exports.createCity = async (req, res) => {
       fullDescription,
       youtubeLink,
       mapLink,
-      mainImage,
+      mainImage: mainImage,
+      galleryImages, 
       infoSections: infoSections ? JSON.parse(infoSections) : []
     });
 
     await city.save();
-    res.status(201).json(city);
+    res.status(201).json({
+      data: {
+        message: 'City created successfully',
+        city: {
+          name,
+          shortDescription,
+          title,
+          fullDescription,
+          youtubeLink,
+          mapLink,
+          infoSections
+        }
+      }
+    });
   } catch (error) {
     res.status(400).json({ message: 'Invalid data', error });
   }
 };
+
 
 
 exports.updateCity = async (req, res) => {
