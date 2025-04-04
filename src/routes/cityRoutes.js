@@ -17,21 +17,13 @@ router.post(
       maxCount: 1
     },
     {
-      name: 'galleryImages',
+      name: 'images',
       maxCount: 5
     }
   ]),
   cityController.createCity
 );
 
-router.post(
-  '/',
-  upload.fields([
-    { name: 'mainImage', maxCount: 1 },
-    { name: 'galleryImages', maxCount: 5 }
-  ]),
-  cityController.createCity 
-);
 
 
 router.put('/:id', cityController.updateCity);

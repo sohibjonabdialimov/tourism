@@ -15,6 +15,7 @@ const CitySchema = new mongoose.Schema({
   youtubeLink: { type: String },
   mapLink: { type: String },
   infoSections: [InfoSectionSchema],
+  images: [String],
 }, { timestamps: true });
 
 module.exports = mongoose.model('City', CitySchema);

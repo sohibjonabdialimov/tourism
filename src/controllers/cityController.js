@@ -2,7 +2,7 @@ const City = require('../models/City');
 
 exports.getAllCities = async (req, res) => {
   try {
-    const cities = await City.find({}, 'name mainImage shortDescription'); // faqat kerakli fieldlar
+    const cities = await City.find({}, 'name mainImage shortDescription');
     res.status(200).json(cities);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
@@ -40,8 +40,8 @@ exports.createCity = async (req, res) => {
       : null;
     console.log(req.files['mainImage']);
     
-    const galleryImages = req.files && req.files['galleryImages']
-      ? req.files['galleryImages'].map(file => file.path)
+    const images = req.files && req.files['images']
+      ? req.files['images'].map(file => file.path)
       : [];
 
     const city = new City({
@@ -52,7 +52,7 @@ exports.createCity = async (req, res) => {
       youtubeLink,
       mapLink,
       mainImage: mainImage,
-      galleryImages, 
+      images: images, 
       infoSections: infoSections ? JSON.parse(infoSections) : []
     });
 
@@ -67,7 +67,8 @@ exports.createCity = async (req, res) => {
           fullDescription,
           youtubeLink,
           mapLink,
-          infoSections
+          infoSections,
+          images
         }
       }
     });
